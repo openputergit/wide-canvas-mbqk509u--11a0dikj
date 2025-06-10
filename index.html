@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parle Tilak Vivdyalaya, Sathaye College</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 50;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold">Modern College</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="hover:text-blue-200">Home</a>
+                    <a href="#" class="hover:text-blue-200">Academics</a>
+                    <a href="#" class="hover:text-blue-200">Admissions</a>
+                    <a href="#" class="hover:text-blue-200">Campus Life</a>
+                    <a href="#" class="hover:text-blue-200">Contact</a>
+                </div>
+                <button class="md:hidden"><i class="bi bi-list text-2xl"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-blue-700 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to Modern College</h1>
+            <p class="text-xl mb-8">Shaping Tomorrow's Leaders Today</p>
+            <button class="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold hover:bg-blue-100">Apply Now</button>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <i class="bi bi-book text-4xl text-blue-600"></i>
+                <h3 class="text-xl font-bold mt-4">Excellence in Education</h3>
+                <p class="mt-2 text-gray-600">Offering cutting-edge programs and world-class faculty.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <i class="bi bi-people text-4xl text-blue-600"></i>
+                <h3 class="text-xl font-bold mt-4">Diverse Community</h3>
+                <p class="mt-2 text-gray-600">A vibrant community of learners from around the world.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <i class="bi bi-trophy text-4xl text-blue-600"></i>
+                <h3 class="text-xl font-bold mt-4">Career Success</h3>
+                <p class="mt-2 text-gray-600">Preparing students for professional excellence.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Icon -->
+    <div class="fixed bottom-8 right-8 z-50">
+        <button onclick="toggleChat()" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 bounce">
+            <i class="bi bi-chat-dots text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Chat Popup -->
+    <div id="chatPopup" class="chat-popup bg-white rounded-lg shadow-xl w-80">
+        <div class="p-4 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold">Chat Support</h3>
+                <button onclick="toggleChat()" class="text-gray-500 hover:text-gray-700">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+        <div class="h-80 p-4 overflow-y-auto" id="chatMessages">
+            <div class="mb-4">
+                <div class="bg-gray-100 p-3 rounded-lg inline-block">
+                    Hello! How can I help you today?
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t">
+            <div class="flex gap-2">
+                <input type="text" id="messageInput" placeholder="Type your message..." 
+                       class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500">
+                <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    <i class="bi bi-send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const popup = document.getElementById('chatPopup');
+            popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'mb-4 text-right';
+                messageDiv.innerHTML = `
+                    <div class="bg-blue-600 text-white p-3 rounded-lg inline-block">
+                        ${message}
+                    </div>
+                `;
+                chatMessages.appendChild(messageDiv);
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate response after 1 second
+                setTimeout(() => {
+                    const responseDiv = document.createElement('div');
+                    responseDiv.className = 'mb-4';
+                    responseDiv.innerHTML = `
+                        <div class="bg-gray-100 p-3 rounded-lg inline-block">
+                            Thanks for your message! Our team will get back to you soon.
+                        </div>
+                    `;
+                    chatMessages.appendChild(responseDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        // Allow sending message with Enter key
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
